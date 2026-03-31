@@ -58,17 +58,8 @@
       vertical-align: middle;
     }
 
-    th {
-      background-color: #d0d0d0;
-      font-weight: bold;
-    }
-
-    td.day {
-      background-color: #f0f0f0;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
+    th { background-color: #d0d0d0; font-weight: bold; }
+    td.day { background-color: #f0f0f0; font-weight: bold; white-space: nowrap; }
     td.gohan { background-color: #fffbe8; }
     td.pan   { background-color: #eef4ff; }
 
@@ -82,44 +73,29 @@
 
     .sub { font-size: 9px; color: #555; display: block; }
 
-    .shopping-wrap {
+    .bottom-wrap {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       margin-top: 10px;
     }
 
-    .shopping-box {
-      flex: 1;
+    .box {
       border: 1px solid #333;
       padding: 6px;
     }
 
-    .shopping-box h3 {
+    .box h3 {
       font-size: 11px;
       margin: 0 0 5px 0;
       border-bottom: 1px solid #aaa;
       padding-bottom: 2px;
     }
 
-    .shopping-box table {
-      margin: 0;
-    }
-
-    .shopping-box th {
-      font-size: 10px;
-      padding: 2px 4px;
-    }
-
-    .shopping-box td {
-      font-size: 10px;
-      padding: 2px 4px;
-      text-align: left;
-    }
-
-    .shopping-box td.r {
-      text-align: right;
-      font-weight: bold;
-    }
+    .box table { margin: 0; }
+    .box th { font-size: 10px; padding: 2px 4px; }
+    .box td { font-size: 10px; padding: 2px 4px; text-align: left; }
+    .box td.r { text-align: right; font-weight: bold; }
+    .box td.carry { background-color: #fff8e0; font-size: 9px; }
 
     .print-btn {
       display: block;
@@ -206,7 +182,7 @@
       <td>卵焼き<span class="sub">卵2個（5個※）</span></td>
       <td>ひじき<span class="sub">100g（300g）</span></td>
       <td>ー</td>
-      <td class="note">卵焼き→目玉焼き<br>（卵1個）<br>※卵：2名×2個＋齋藤様1個＝5個</td>
+      <td class="note">卵焼き→目玉焼き（卵1個）<br>※卵：2名×2個＋齋藤様1個＝5個</td>
     </tr>
     <tr>
       <td class="day">土 4/11</td>
@@ -226,43 +202,57 @@
       <td>スクランブルエッグ<span class="sub">卵2個（5個※）</span></td>
       <td>きんぴら<span class="sub">100g（300g）</span></td>
       <td>ー</td>
-      <td class="note">スクランブルエッグ→目玉焼き<br>（卵1個）<br>※卵：2名×2個＋齋藤様1個＝5個</td>
+      <td class="note">スクランブルエッグ→目玉焼き（卵1個）<br>※卵：2名×2個＋齋藤様1個＝5個</td>
     </tr>
   </tbody>
 </table>
 <p class="legend">※食パン・スープの（）は齋藤様を除く2名分</p>
 
-<!-- 購入食材リスト -->
-<div class="shopping-wrap">
-  <div class="shopping-box">
-    <h3>◆ 今週の購入食材（週合計・3名分）</h3>
+<div class="bottom-wrap">
+  <!-- 購入リスト -->
+  <div class="box" style="flex:2;">
+    <h3>◆ 今週の購入食材（3名分）</h3>
     <table>
       <thead>
-        <tr><th>食材</th><th>週合計</th><th>内訳</th></tr>
+        <tr><th>食材</th><th>今週使用量</th><th>購入</th><th>翌週持ち越し</th><th>内訳</th></tr>
       </thead>
       <tbody>
-        <tr><td>白飯（米）</td><td class="r">2,250g</td><td>ご飯食4日×3名450g＋パン食3日×齋藤様150g</td></tr>
-        <tr><td>食パン</td><td class="r">6枚</td><td>2名×3日</td></tr>
-        <tr><td>味噌汁</td><td class="r">15個</td><td>ご飯食4日×3名12個＋パン食3日×齋藤様3個</td></tr>
-        <tr><td>スープ</td><td class="r">6個</td><td>2名×3日</td></tr>
-        <tr><td>卵</td><td class="r">16個</td><td>月3・水3・金5・日5</td></tr>
-        <tr><td>納豆</td><td class="r">6個</td><td>3名×2日（月・水）</td></tr>
-        <tr><td>ウインナー</td><td class="r">9本</td><td>3名×3本×1日（火）</td></tr>
-        <tr><td>ハム</td><td class="r">6枚</td><td>3名×2枚×1日（木）</td></tr>
-        <tr><td>ベーコン</td><td class="r">6枚</td><td>3名×2枚×1日（土）</td></tr>
-        <tr><td>ポテトサラダ</td><td class="r">900g</td><td>3名×100g×3日（火・木・土）</td></tr>
-        <tr><td>ひじき</td><td class="r">600g</td><td>3名×100g×2日（月・金）</td></tr>
-        <tr><td>きんぴら</td><td class="r">600g</td><td>3名×100g×2日（水・日）</td></tr>
+        <tr><td>白飯（米）</td><td class="r">2,250g</td><td>適量</td><td>ー</td><td>ご飯食4日×3名＋パン食3日×齋藤様</td></tr>
+        <tr><td>食パン</td><td class="r">6枚</td><td>1袋</td><td>ー</td><td>2名×3日</td></tr>
+        <tr><td>味噌汁</td><td class="r">15個</td><td>1箱</td><td>ー</td><td>ご飯食12個＋齋藤様パン食3個</td></tr>
+        <tr><td>スープ</td><td class="r">6個</td><td>1箱</td><td>ー</td><td>2名×3日</td></tr>
+        <tr><td>卵</td><td class="r">16個</td><td>2パック</td><td>4個</td><td>月3・水3・金5・日5</td></tr>
+        <tr><td>納豆</td><td class="r">6個</td><td>2パック</td><td>ー</td><td>3名×2日（月・水）</td></tr>
+        <tr><td>ウインナー</td><td class="r">9本</td><td>1袋</td><td>適量</td><td>3名×3本（火）</td></tr>
+        <tr><td>ハム</td><td class="r">6枚</td><td>1袋</td><td>適量</td><td>3名×2枚（木）</td></tr>
+        <tr><td>ベーコン</td><td class="r">6枚</td><td>1袋</td><td>適量</td><td>3名×2枚（土）</td></tr>
+        <tr><td>ポテトサラダ</td><td class="r">900g</td><td class="r">1袋（1kg）</td><td class="carry">100g</td><td>3名×300g×3日（火・木・土）</td></tr>
+        <tr><td>ひじき</td><td class="r">600g</td><td class="r">1袋（1kg）</td><td class="carry">400g →翌週2回分</td><td>3名×300g×2日（月・金）</td></tr>
+        <tr><td>きんぴら</td><td class="r">600g</td><td class="r">1袋（1kg）</td><td class="carry">400g →翌週2回分</td><td>3名×300g×2日（水・日）</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="shopping-box" style="max-width:200px;">
-    <h3>◆ 備考</h3>
+
+  <!-- 翌週への引き継ぎ＋備考 -->
+  <div class="box" style="flex:1;">
+    <h3>◆ 翌週（4/13〜）への引き継ぎ</h3>
+    <p style="font-size:10px; margin:0 0 6px 0; line-height:1.8;">
+      <b>持ち越し食材：</b><br>
+      　・ポテトサラダ：100g（パン食1回分以下）<br>
+      　・ひじき：400g（ご飯食2回分）<br>
+      　・きんぴら：400g（ご飯食2回分）<br>
+      　・卵：4個<br><br>
+      <b>翌週の方針：</b><br>
+      　・ひじき・きんぴらを優先使用<br>
+      　・サラダ系は新たにマカロニサラダ<br>
+      　　またはゴボウサラダを開封
+    </p>
+    <h3 style="margin-top:8px;">◆ 備考</h3>
     <p style="font-size:10px; margin:0; line-height:1.8;">
       今週の要使い切り食材：<br>
-      　・ポテトサラダ<br>
-      　・ひじき<br>
-      　・きんぴら<br><br>
+      　・ポテトサラダ（ほぼ使い切り）<br>
+      　・ひじき（翌週使い切り予定）<br>
+      　・きんぴら（翌週使い切り予定）<br><br>
       齋藤様ルール：<br>
       　・パン食日→白飯＋味噌汁<br>
       　・卵：目玉焼き・ゆで卵のみ可
