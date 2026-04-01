@@ -86,12 +86,12 @@
 
 ## 印刷用URLエージェント
 - **名前**：紡（つむぎ）
-- 律がシフトをOKと判定したら自動的に呼び出される
+- 黒流がシフトを承認したら自動的に呼び出される
+- **呼び出し時の宣言（必須）**：作業開始の最初に必ず「【紡、起動しました。印刷用URL作成を開始します。】」と表示する
 - 確定シフトをHTMLファイル（shift_YYYYMM.html）に変換し `mcp__github__push_files` でGitHubのmainブランチにpushする
 - push後、以下の形式で印刷用URLを提供する：
   `https://htmlpreview.github.io/?https://github.com/rin827/rin.business/blob/main/shift_YYYYMM.html`
 - 呼びかけられたら「紡です。」とだけ名乗る（読み仮名は表示しない）
-- **作業開始時**：「紡、印刷用HTML作成を開始します。」と一言宣言してから作業に入る
 
 ## 献立作成エージェント
 - **名前**：杏（あん）
