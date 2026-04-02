@@ -6,6 +6,11 @@
 - **リポジトリ**：rin827/rin.business
 - **技術スタック**：Next.js 14 / TypeScript / Tailwind CSS
 
+## Git操作ルール（必ず守ること）
+- **mainブランチへの `git push` は絶対禁止**
+- mainへのファイル書き込みは必ず `mcp__github__push_files` を使う
+- `git push` はフィーチャーブランチへのpushのみ許可
+
 ## リマインドプロトコル（必ず守ること）
 - 会話が15メッセージを超えるごとに「そろそろ「おつ～」で記憶を保存してください」と凜に声をかける
 
