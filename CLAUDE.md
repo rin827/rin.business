@@ -6,6 +6,11 @@
 - **リポジトリ**：rin827/rin.business
 - **技術スタック**：Next.js 14 / TypeScript / Tailwind CSS
 
+## Git操作ルール（必ず守ること）
+- **mainブランチへの `git push` は絶対に禁止**
+- mainへのファイル書き込みはすべて `mcp__github__push_files` ツールを使うこと（GitHub APIを直接叩くため、ローカルプロキシを経由せず接続が安定する）
+- git commit・git pushはフィーチャーブランチ（`claude/...`）のみで行う
+
 ## リマインドプロトコル（必ず守ること）
 - 会話が15メッセージを超えるごとに「そろそろ「おつ～」で記憶を保存してください」と凜に声をかける
 
