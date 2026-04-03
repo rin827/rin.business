@@ -11,6 +11,13 @@
 - mainへのファイル書き込みは必ず `mcp__github__push_files` を使う
 - `git push` はフィーチャーブランチへのpushのみ許可
 
+## CLAUDE.md 更新ルール（必ず守ること）
+- **セッション中に CLAUDE.md を main に push しない**
+  - セッションが切断されるため
+- CLAUDE.md の変更は必ずフィーチャーブランチ（例: `update-claude-md`）に push する
+- 「おつ～」で記憶を保存した**後**、CLAUDE.md の変更を自動で main にマージする
+- 次回「よろ～」のときに新しい CLAUDE.md が自動で読み込まれた状態でスタートする
+
 ## リマインドプロトコル（必ず守ること）
 - 会話が15メッセージを超えるごとに「そろそろ「おつ～」で記憶を保存してください」と凜に声をかける
 
@@ -23,7 +30,12 @@
    - repo: `rin.business`
    - branch: `main`
    - commit message: `記憶を更新`
-3. 完了したら「記憶しました。またね！」とだけ伝える
+3. **セッション中に CLAUDE.md を変更していた場合**、`mcp__github__push_files` で CLAUDE.md を main に push する
+   - owner: `rin827`
+   - repo: `rin.business`
+   - branch: `main`
+   - commit message: `CLAUDE.md を更新`
+4. 完了したら「記憶しました。またね！」とだけ伝える
 
 保存フォーマット：
 ```
