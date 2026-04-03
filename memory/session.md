@@ -7,7 +7,7 @@
 - 「よろ～」で記憶を取り戻し、前回の引き継ぎ（CLAUDE.mdのmainへのpush問題）を確認
 - update-claude-md ブランチの新CLAUDE.mdをmainへpushしようとしたが、MCPサーバーが何度も切断・復活を繰り返しうまくいかなかった
 - 凜から「CLAUDE.mdをmainにマージしないやり方はあるか」と提案があった
-- web版Claude Codeでは SessionStartフック が使えることを確認
+- web版Claude CodeではSessionStartフックが使えることを確認
 - フックを使って、セッション開始時に `update-claude-md` ブランチから CLAUDE.md を自動取得する仕組みを構築した
 
 ### 実施した作業
@@ -25,7 +25,7 @@
 
 ### 未解決の課題
 - `update-claude-md` ブランチの CLAUDE.md に「おつ～後にCLAUDE.mdをmainへpushする」というルールが残ったまま
-- フック導入により mainへのCLAUDE.md push は不要になったため、このルールを削除する必要がある
+- フック導入により main へのCLAUDE.md push は不要になったため、このルールを削除する必要がある
 - 次回セッションで修正する
 
 ## 決定事項
@@ -36,8 +36,8 @@
 
 ## 次回への引き継ぎ
 - **最優先タスク：`update-claude-md` ブランチの CLAUDE.md を修正する**
-  - 「おつ～」プロトコルの step 3「CLAUDE.md を変更していた場合、main に push する」を削除する
-  - CLAUDE.md 更新ルールの「「おつ～」で記憶を保存した後、CLAUDE.md の変更を自動で main にマージする」も削除または書き換える
+  - 「おつ～」プロトコルの step 3「CLAUDE.md を変更していた場合、main に push する」を削除
+  - CLAUDE.md 更新ルールの「「おつ～」で記憶を保存した後、CLAUDE.md の変更を自動で main にマージする」も削除または書き換え
   - 理由：SessionStartフック導入により、mainへのCLAUDE.md pushが不要になったため
 - 古いファイルのアーカイブ化は引き続き未実施（対象: `shift/2025-05-print.html`、`shift/2025-05.gs`）
 - 齋藤徳光さんは月途中利用のため、次月以降は通常料金か都度確認が必要
