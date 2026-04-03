@@ -2,52 +2,43 @@
 
 ## 会話の要約
 
-### CLAUDE.mdのmainへのpush問題の調査・診断
+### CLAUDE.md を main にマージしない仕組みの構築
 
-- 「よろ～」で記憶を取り戻し、前回の引き継ぎ事項を確認した
-- 凜から「CLAUDE.mdをmainにpushするタイミングでいつもうまくいかない原因を調べて、解決し、最適化して」と依頼
-- 黒流が調査を開始し、根本原因を3つ特定した
+- 「よろ～」で記憶を取り戻し、前回の引き継ぎ（CLAUDE.mdのmainへのpush問題）を確認
+- update-claude-md ブランチの新CLAUDE.mdをmainへpushしようとしたが、MCPサーバーが何度も切断・復活を繰り返しうまくいかなかった
+- 凜から「CLAUDE.mdをmainにマージしないやり方はあるか」と提案があった
+- web版Claude Codeでは SessionStartフック が使えることを確認
+- フックを使って、セッション開始時に `update-claude-md` ブランチから CLAUDE.md を自動取得する仕組みを構築した
 
-#### 根本原因（確定）
+### 実施した作業
+1. `.claude/hooks/session-start.sh` を作成
+   - web環境のみ実行（`$CLAUDE_CODE_REMOTE` で判定）
+   - 起動時に `git fetch origin update-claude-md && git checkout origin/update-claude-md -- CLAUDE.md` を実行
+2. `.claude/settings.json` を作成し SessionStart フックとして登録
+3. フックの動作確認済み（新CLAUDE.mdが正しく取得されることを確認）
+4. 両ファイルを main に push 済み（commit: `370f164b`）
 
-1. **MCPツールが「遅延ロード（deferred tool）」形式**
-   - `mcp__github__push_files` などのMCPツールはセッション起動時に自動でロードされない
-   - 使う前に必ず `ToolSearch` で明示的にロードしてから呼び出す必要がある
-   - 前回セッションではToolSearchを呼ばずにpush_filesを使おうとして失敗していた
-   - これが「MCPサーバー接続不安定」に見えていた原因の正体
+### 新しいワークフロー
+- CLAUDE.md の変更 → `update-claude-md` ブランチにだけ push
+- main には CLAUDE.md を push しない
+- 次セッション開始時にフックが自動で最新版を取得
 
-2. **未反映のCLAUDE.mdが放置**
-   - `claude/invoice-system-continuation-aUREF` ブランチ（commit: `9b83143`）に律チェックリスト統合版がある
-   - 現在のmain（`f357430`）はチェックリストなし版のまま
-   - invoice branchはmainのancestor `44e8bbb` から分岐したまま未マージ
-
-3. **CLAUDE.mdにToolSearch手順の記載がない**
-   - push方法は書いてあるが「使う前にToolSearchでロードする」という必須手順が未記載
-
-#### 調査中に確認したこと
-- ブランチ一覧：main / claude/invoice-system-continuation-aUREF / claude/japanese-greeting-* など多数
-- invoice branchのCLAUDE.mdを確認：律の「作業開始時」が `（〇回目）` 付きに更新済み、詳細チェックリストあり
-- mainのCLAUDE.mdを確認：チェックリストなし版が現在反映中
-
-#### 今セッションでの作業状況
-- 根本原因の調査・特定まで完了
-- CLAUDE.mdの修正（ToolSearch手順追記 ＋ チェックリスト統合版をmainへpush）は**未実施のまま中断**
-- 「おつ～」で中断されたため、pushは次回に持ち越し
+### 未解決の課題
+- `update-claude-md` ブランチの CLAUDE.md に「おつ～後にCLAUDE.mdをmainへpushする」というルールが残ったまま
+- フック導入により mainへのCLAUDE.md push は不要になったため、このルールを削除する必要がある
+- 次回セッションで修正する
 
 ## 決定事項
-- MCPツールはToolSearchでロードしてから使う（これが根本原因の解決策）
-- CLAUDE.mdのGit操作ルールに「`mcp__github__*` ツールを使う前に必ず `ToolSearch` でロードすること」を追記する
-- invoice branchの律チェックリスト統合版をmainにpushする
-- 上記2つを一度のpushでまとめて実施する
+- CLAUDE.md は main にマージしない。`update-claude-md` ブランチで管理
+- SessionStartフックが毎回 `update-claude-md` から CLAUDE.md を取得する
+- フックファイル（`.claude/hooks/session-start.sh`、`.claude/settings.json`）は main に存在する（これは変わらない）
+- ベースブランチが main でも問題ない（フックが上書きするため）
 
 ## 次回への引き継ぎ
-- **最優先タスク：CLAUDE.mdの修正版をmainにpushする**
-  - ベース：`claude/invoice-system-continuation-aUREF` の `9b83143` のCLAUDE.md
-  - 追加変更：Git操作ルールセクションに以下1行を追加
-    ```
-    - **`mcp__github__*` ツールを使う前に必ず `ToolSearch` でロードすること**（例：`ToolSearch("select:mcp__github__push_files")` を呼んでから使う）
-    ```
-  - pushする前にToolSearchで `mcp__github__push_files` をロードしてから実行すること
+- **最優先タスク：`update-claude-md` ブランチの CLAUDE.md を修正する**
+  - 「おつ～」プロトコルの step 3「CLAUDE.md を変更していた場合、main に push する」を削除する
+  - CLAUDE.md 更新ルールの「「おつ～」で記憶を保存した後、CLAUDE.md の変更を自動で main にマージする」も削除または書き換える
+  - 理由：SessionStartフック導入により、mainへのCLAUDE.md pushが不要になったため
 - 古いファイルのアーカイブ化は引き続き未実施（対象: `shift/2025-05-print.html`、`shift/2025-05.gs`）
 - 齋藤徳光さんは月途中利用のため、次月以降は通常料金か都度確認が必要
 - 請求書HTMLフォーマット：和暦・2カラムレイアウト・御請求金額・明細テーブル・小計行（スクリーンショット準拠）
